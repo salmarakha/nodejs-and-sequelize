@@ -11,9 +11,15 @@ const User = sequelize.define("Tweet", {
     },
     firstName: {
         type: Sequelize.STRING(15),
+        validate: {
+            is: ["^[a-z]+$",'i'],     // will only allow letters
+        }
     },
     lastName: {
         type: Sequelize.STRING(15),
+        validate: {
+            is: ["^[a-z]+$",'i'],     // will only allow letters
+        }
     },
 
     // Defibne getter as part of the model

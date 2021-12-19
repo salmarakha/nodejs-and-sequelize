@@ -9,7 +9,13 @@ const Tweet = sequelize.define("Tweet", {
         autoIncrement: true,
         primaryKey: true,
     },
-    content: Sequelize.STRING(480),
+    content: {
+        type: Sequelize.STRING(480),
+        get: function () {
+            let content = this.getDataValue('content');
+            return "Content: " + content;
+        }
+    }
 });
 
 module.exports = Tweet;

@@ -10,8 +10,9 @@ router.get('/', (req, res, next) => {
 router.post('/', createTweet);
 
 function createTweet (req, res, next) {
-    const { content: tweetContent } = req;
-    addTweet(tweetContent).then(result=> {
+    const { content: tweetContent } = req.body;
+    addTweet(tweetContent)
+    .then(result => {
         res.status(201).json({ message: "New Tweet created", tweet: result });
     })
     .catch(err => next(err)); 

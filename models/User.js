@@ -1,22 +1,22 @@
-const Sequelize = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 // create the schema of the table
 const User = sequelize.define("User", {
     id: {
-        type: Sequelize.INTEGER(11), // standered for id
+        type: DataTypes.INTEGER(11), // standered for id
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
     },
     firstName: {
-        type: Sequelize.STRING(15),
+        type: DataTypes.STRING(15),
         validate: {
             is: ["^[a-z]+$",'i'],     // will only allow letters
         }
     },
     lastName: {
-        type: Sequelize.STRING(15),
+        type: DataTypes.STRING(15),
         validate: {
             is: ["^[a-z]+$",'i'],     // will only allow letters
         }

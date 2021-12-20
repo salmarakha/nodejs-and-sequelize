@@ -12,7 +12,7 @@ const Tweet = sequelize.define("Tweet", {
     content: {
         type: DataTypes.STRING(480),
         // define getter as part of a property
-        get: function () {
+        get() {
             let content = this.getDataValue('content');
             return "Content: " + content;
         }

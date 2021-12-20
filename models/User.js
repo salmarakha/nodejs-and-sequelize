@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
+const bcrypt = require('bcrypt');
 
 // create the schema of the table
 const User = sequelize.define("User", {
@@ -21,6 +22,15 @@ const User = sequelize.define("User", {
             is: ["^[a-z]+$",'i'],     // will only allow letters
         }
     },
+    email: {
+        type: DataTypes.STRING(50),
+        validate: {
+            isEmail: true, 
+        }
+    },
+    password: {
+        type: DataTypes.STRING(100),
+    },
     fullName: {
         type: DataTypes.VIRTUAL,
         get () {
@@ -37,5 +47,15 @@ const User = sequelize.define("User", {
     //     fullname: function () { return this.firstName + " " + this.lastName }
     // },
 });
+
+// Hook
+User.beforeCreate(async (user, options) => {
+    const hashedPassword = await hashPassword(user.password);
+    user.password = hashedPassword;
+});
+
+function hashPassword(password) {
+   return bcrypt.hash(password, 10);
+}
 
 module.exports = User;

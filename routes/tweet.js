@@ -1,10 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const { addTweet } = require('../controllers/tweet');
+const { addTweet, searchTweets } = require('../controllers/tweet');
 
 router.get('/', (req, res, next) => {
     // a function should handle the logic
     res.json({testData: "Some Dummy text"});
+});
+
+router.get('/search', (req, res, next) => {
+    // a function should handle the logic
+    const { q: query } = req.query;
+    searchTweets(query)
+    .then(result => {
+        res.json(result)
+    })
+    .catch(err => next(err));
 });
 
 router.post('/', createTweet);

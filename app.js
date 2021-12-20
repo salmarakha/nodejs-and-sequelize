@@ -16,7 +16,7 @@ const sequelize = require('./config/connection');
  * Models must be synchronized with the database to create new tables or modify existing ones
     depending on the model.
  */
-sequelize.sync({ force: true });
+sequelize.sync();
 
 const PORT = 3000;
 

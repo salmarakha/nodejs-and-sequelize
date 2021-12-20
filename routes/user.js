@@ -7,8 +7,8 @@ router.get('/:id', findById);
 router.post('/', createUser)
 
 function findById (req, res, next) {
-    const { id: tweetId } = req.params
-    getById(tweetId)
+    const { id: userId } = req.params
+    getById(userId)
     .then(result => {
         res.status(200).json({ user: result })
     })

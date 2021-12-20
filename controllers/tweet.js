@@ -14,7 +14,11 @@ const searchTweets = (query) => {
 
 const findAllTweets = (page, limit) => {
     const offset = (page - 1) * limit || 0;
-    return Tweet.findAndCountAll({ offset: offset || 0, limit: Number(limit) || 10 });
+    return Tweet.findAndCountAll({ 
+        order: [['createdAt', 'DESC'] /* I can add multiple fields */],
+        offset: offset || 0,
+        limit: Number(limit) || 10 
+    });
 }
 
 module.exports = {

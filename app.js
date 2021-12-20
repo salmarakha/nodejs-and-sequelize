@@ -26,7 +26,7 @@ app.use((err, req, res, next) => {
     // global error handler
     if (err) {
         console.log(err);
-        res.status(503).json({ error: "It's not you" })
+        res.status(503).json({ error: err.message })
     }
 });
 

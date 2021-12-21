@@ -1,5 +1,6 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
+const User = require('./User');
 
 // create the schema of the table
 const Tweet = sequelize.define("Tweet", {
@@ -18,5 +19,8 @@ const Tweet = sequelize.define("Tweet", {
         }
     }
 });
+
+// adds a foreign key to Tweets table from User table
+// Tweet.belongsTo(User);
 
 module.exports = Tweet;

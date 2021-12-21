@@ -1,6 +1,7 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 const bcrypt = require('bcrypt');
+const Tweet = require('./Tweet');
 
 // create the schema of the table
 const User = sequelize.define("User", {
@@ -47,6 +48,11 @@ const User = sequelize.define("User", {
     //     fullname: function () { return this.firstName + " " + this.lastName }
     // },
 });
+
+// User.hasMany(Tweet, { 
+//     foreignKey: 'userId',
+//     onDelete: 'CASCADE' 
+// });
 
 // Hook
 User.beforeCreate(async (user, options) => {

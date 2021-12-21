@@ -18,6 +18,9 @@ const sequelize = require('./config/connection');
  */
 sequelize.sync();
 
+// declare models associations
+(require('./models/Associations'))();
+
 const PORT = 3000;
 
 app.use('/', routes);

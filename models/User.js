@@ -26,11 +26,18 @@ const User = sequelize.define("User", {
     email: {
         type: DataTypes.STRING(50),
         validate: {
-            isEmail: true, 
-        }
+            isEmail: true,
+            notNull: true 
+        },
+        allowNull: false,
+        unique: true
     },
     password: {
         type: DataTypes.STRING(100),
+        validate: {
+            notNull: true 
+        },
+        allowNull: false
     },
     fullName: {
         type: DataTypes.VIRTUAL,
@@ -38,29 +45,26 @@ const User = sequelize.define("User", {
             return `${this.getDataValue('firstName')} ${this.getDataValue('lastName')}`
         }
     }
-},
-{
-    // Define getter as part of the model
-    // this will be deprecated
-    // getterMethods: {
-    //     // this.firstName will trigger fields getters
-    //     // use getDataValue('firstName') instead to get the raw data
-    //     fullname: function () { return this.firstName + " " + this.lastName }
-    // },
 });
+
+// override .toJSON to prevent password from returning
+User.prototype.toJSON = function () {
+    return Object.assign({}, {...this.get(), password: undefined});
+}
 
 // User.hasMany(Tweet, { 
 //     foreignKey: 'userId',
 //     onDelete: 'CASCADE' 
 // });
 
-// Hook
+// Hook (instance hook)
 User.beforeCreate(async (user, options) => {
     const hashedPassword = await hashPassword(user.password);
     user.password = hashedPassword;
 });
 
 function hashPassword(password) {
+    console.log(password)
    return bcrypt.hash(password, 10);
 }
 

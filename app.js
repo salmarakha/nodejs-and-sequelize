@@ -11,6 +11,7 @@ app.use(express.json());
 
 // DB connection
 const sequelize = require('./config/connection');
+
 /**
  * Synchronizing all models at once.
  * Models must be synchronized with the database to create new tables or modify existing ones

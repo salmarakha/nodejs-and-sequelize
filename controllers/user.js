@@ -1,10 +1,15 @@
 const User = require('../models/User');
+const Tweet = require('../models/Tweet');
 
 
-const getById = (userId) => {
-    console.log(userId);
-    // findById is replaced with findByPk
-    return User.findByPk(userId)
+const getById = async (userId) => {
+    // console.log(await User.findByPk(userId));
+    
+    // Lazy Loading
+    const user = await User.findByPk(userId);
+    console.log(await user.getTweets());
+    // Eager Loading
+    return User.findByPk(userId, { include: Tweet });
 }
 
 const addUser = (userData) => {
